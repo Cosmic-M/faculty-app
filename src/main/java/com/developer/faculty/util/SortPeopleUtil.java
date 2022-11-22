@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 
-public class SortDealsUtil {
+public class SortPeopleUtil {
     private static final String PARAMETER_SPLITERATOR = ";";
     private static final String ORDER_SPLITERATOR = ":";
 
-    public static Sort getSortingDeals(String sortBy) {
+    public static Sort getSortProperty(String sortBy) {
         List<Sort.Order> orders = new ArrayList<>();
         if (sortBy.contains(ORDER_SPLITERATOR)) {
             String[] sortingFields = sortBy.split(PARAMETER_SPLITERATOR);

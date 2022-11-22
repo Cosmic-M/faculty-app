@@ -6,9 +6,10 @@ import com.developer.faculty.service.StudentService;
 import com.developer.faculty.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.developer.faculty.model.Student;
-
 import java.util.List;
 
 @Service
@@ -41,8 +42,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAll() {
-        return studentRepository.findAll();
+    public Page<Student> getAll(PageRequest pageRequest) {
+        return studentRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public List<Student> getAllByTeacher(Long teacherId, PageRequest pageRequest) {
+        Teacher teacher = teacherService.get(teacherId);
+        return studentRepository.getStudentsByTeachersContaining(teacher, pageRequest);
     }
 
     @Override

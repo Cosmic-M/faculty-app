@@ -36,23 +36,4 @@ public class StudentMapper {
                 .toList());
         return studentResponseDto;
     }
-
-    public Student toModel(Student student, StudentRequestDto requestDto) {
-        if (requestDto.getName() != null) {
-            student.setName(requestDto.getName());
-        }
-        if (requestDto.getSurname() != null) {
-            student.setSurname(requestDto.getSurname());
-        }
-        if (requestDto.getAge() != 0) {
-            student.setAge(requestDto.getAge());
-        }
-        if (requestDto.getEmail() != null) {
-            student.setEmail(requestDto.getEmail());
-        }
-        if (requestDto.getSpecialization() != null) {
-            student.setSpecialization(requestDto.getSpecialization());
-        }
-        return student;
-    }
 }

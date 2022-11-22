@@ -36,23 +36,4 @@ public class TeacherMapper {
                 .toList());
         return responseDto;
     }
-
-    public Teacher toModel(Teacher teacher, TeacherRequestDto requestDto) {
-        if (requestDto.getName() != null) {
-            teacher.setName(requestDto.getName());
-        }
-        if (requestDto.getSurname() != null) {
-            teacher.setSurname(requestDto.getSurname());
-        }
-        if (requestDto.getAge() != 0) {
-            teacher.setAge(requestDto.getAge());
-        }
-        if (requestDto.getEmail() != null) {
-            teacher.setEmail(requestDto.getEmail());
-        }
-        if (requestDto.getSubject() != null) {
-            teacher.setSubject(requestDto.getSubject());
-        }
-        return teacher;
-    }
 }

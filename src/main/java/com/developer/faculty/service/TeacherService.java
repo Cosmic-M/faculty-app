@@ -1,6 +1,8 @@
 package com.developer.faculty.service;
 
 import com.developer.faculty.model.Teacher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface TeacherService {
@@ -12,7 +14,9 @@ public interface TeacherService {
 
     void delete(Long teacherId);
 
-    List<Teacher> getAll();
+    Page<Teacher> getAll(PageRequest pageRequest);
+
+    List<Teacher> getAllByStudent(Long teacherId, PageRequest pageRequest);
 
     Teacher addStudent(Long teacherId, Long studentId);
 

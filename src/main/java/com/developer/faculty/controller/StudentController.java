@@ -3,13 +3,16 @@ package com.developer.faculty.controller;
 import com.developer.faculty.dto.response.StudentResponseDto;
 import com.developer.faculty.service.StudentService;
 import com.developer.faculty.service.mapper.StudentMapper;
+import com.developer.faculty.util.SortPeopleUtil;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
 import com.developer.faculty.dto.request.StudentRequestDto;
 import com.developer.faculty.model.Student;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -22,9 +25,43 @@ public class StudentController {
 
     @GetMapping
     @ApiOperation(value = "get list of students")
-    public List<StudentResponseDto> getAll() {
-        return studentService.getAll().stream().map(studentMapper::toDto).toList();
+    public List<StudentResponseDto> getAll(@RequestParam(defaultValue = "20")
+                                               @ApiParam(value = "default value is 20")
+                                               Integer count,
+                                           @RequestParam(defaultValue = "0")
+                                               @ApiParam(value = "default value is 0")
+                                               Integer page,
+                                           @RequestParam(defaultValue = "id")
+                                               @ApiParam(value = "default value is id")
+                                               String sortBy) {
+        Sort sort = SortPeopleUtil.getSortProperty(sortBy);
+        Page<Student> students = studentService
+                .getAll(PageRequest.of(page, count, sort));
+        return students.stream()
+                .map(studentMapper::toDto)
+                .toList();
     }
+
+    @GetMapping("/by-teacher")
+    @ApiOperation(value = "get list of students by teacher's id")
+    public List<StudentResponseDto> getAllByTeacher(@RequestParam Long teacherId,
+                                           @RequestParam(defaultValue = "20")
+                                           @ApiParam(value = "default value is 20")
+                                           Integer count,
+                                           @RequestParam(defaultValue = "0")
+                                           @ApiParam(value = "default value is 0")
+                                           Integer page,
+                                           @RequestParam(defaultValue = "id")
+                                           @ApiParam(value = "default value is id")
+                                           String sortBy) {
+        Sort sort = SortPeopleUtil.getSortProperty(sortBy);
+        List<Student> students = studentService
+                .getAllByTeacher(teacherId, PageRequest.of(page, count, sort));
+        return students.stream()
+                .map(studentMapper::toDto)
+                .toList();
+    }
+
 
     @PostMapping
     @ApiOperation(value = "create a new student")
@@ -33,12 +70,12 @@ public class StudentController {
         return studentMapper.toDto(studentService.create(student));
     }
 
-    @PatchMapping("/{id}")
-    @ApiOperation(value = "update chosen fields at student specified by id")
+    @PutMapping("/{id}")
+    @ApiOperation(value = "update student with specific id")
     public void update(@PathVariable Long id, @RequestBody @Valid StudentRequestDto requestDto) {
-        Student fromDB = studentService.get(id);
-        Student updatedStudent = studentMapper.toModel(fromDB, requestDto);
-        studentService.update(updatedStudent);
+        Student student = studentMapper.toModel(requestDto);
+        student.setId(id);
+        studentService.update(student);
     }
 
     @DeleteMapping("/{id}")
@@ -47,16 +84,16 @@ public class StudentController {
         studentService.delete(id);
     }
 
-    @PatchMapping("/{studentId}/add-teacher/{teacherId}")
+    @PutMapping("/add-teacher")
     @ApiOperation(value = "add teacher to student's list of teachers")
-    public StudentResponseDto addTeacher(@PathVariable Long studentId, @PathVariable Long teacherId) {
+    public StudentResponseDto addTeacher(@RequestParam Long studentId, @RequestParam Long teacherId) {
         Student student = studentService.addTeacher(studentId, teacherId);
         return studentMapper.toDto(student);
     }
 
-    @PatchMapping("/{studentId}/remove-teacher/{teacherId}")
+    @PutMapping("/remove-teacher")
     @ApiOperation(value = "remove teacher from student's list of teachers")
-    public StudentResponseDto removeTeacher(@PathVariable Long studentId, @PathVariable Long teacherId) {
+    public StudentResponseDto removeTeacher(@RequestParam Long studentId, @RequestParam Long teacherId) {
         Student student = studentService.removeTeacher(studentId, teacherId);
         return studentMapper.toDto(student);
     }
