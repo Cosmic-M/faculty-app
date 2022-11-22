@@ -2,17 +2,16 @@ package com.developer.faculty.dto.request;
 
 import com.developer.faculty.lib.ValidEmail;
 import com.developer.faculty.model.Subject;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 public class TeacherRequestDto {
-    @Size(min =3, message = "name should have at least 3 characters")
+    @Size(min = 3, message = "name should have at least 3 characters")
     @Size(max = 20, message = "name should be up to 20 characters")
     private String name;
     @Size(min = 3, message = "surname should have at least 3 characters")

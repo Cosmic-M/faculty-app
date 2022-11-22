@@ -1,18 +1,16 @@
 package com.developer.faculty.service.impl;
 
+import com.developer.faculty.model.Student;
 import com.developer.faculty.model.Teacher;
 import com.developer.faculty.repository.StudentRepository;
+import com.developer.faculty.repository.TeacherRepository;
 import com.developer.faculty.service.StudentService;
 import com.developer.faculty.service.TeacherService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import com.developer.faculty.model.Student;
-import com.developer.faculty.repository.TeacherRepository;
-
-import java.util.List;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -78,5 +76,10 @@ public class TeacherServiceImpl implements TeacherService {
         student.setTeachers(teachers);
         studentRepository.save(student);
         return teacherRepository.findById(teacherId).get();
+    }
+
+    @Override
+    public List<Teacher> find(String name, String surname) {
+        return teacherRepository.getTeachersByNameAndSurname(name, surname);
     }
 }

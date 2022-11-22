@@ -1,9 +1,9 @@
 package com.developer.faculty.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
 import com.developer.faculty.model.Specialization;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

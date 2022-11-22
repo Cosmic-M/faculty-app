@@ -1,12 +1,19 @@
 package com.developer.faculty.model;
 
-import javax.persistence.*;
-
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +31,7 @@ public class Student {
     @Enumerated(EnumType.STRING)
     private Specialization specialization;
     @ManyToMany
-    @JoinTable(name="students_teachers",
+    @JoinTable(name = "students_teachers",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private List<Teacher> teachers;

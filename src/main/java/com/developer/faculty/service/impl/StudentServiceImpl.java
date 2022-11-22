@@ -1,16 +1,16 @@
 package com.developer.faculty.service.impl;
 
+import com.developer.faculty.model.Student;
 import com.developer.faculty.model.Teacher;
 import com.developer.faculty.repository.StudentRepository;
 import com.developer.faculty.service.StudentService;
 import com.developer.faculty.service.TeacherService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import com.developer.faculty.model.Student;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -72,5 +72,10 @@ public class StudentServiceImpl implements StudentService {
         teachers.remove(teacher);
         student.setTeachers(teachers);
         return studentRepository.save(student);
+    }
+
+    @Override
+    public List<Student> find(String name, String surname) {
+        return studentRepository.getStudentsByNameAndSurname(name, surname);
     }
 }

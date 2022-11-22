@@ -1,9 +1,9 @@
 package com.developer.faculty.service;
 
 import com.developer.faculty.model.Teacher;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import java.util.List;
 
 public interface TeacherService {
     Teacher create(Teacher teacher);
@@ -21,4 +21,6 @@ public interface TeacherService {
     Teacher addStudent(Long teacherId, Long studentId);
 
     Teacher removeStudent(Long teacherId, Long studentId);
+
+    List<Teacher> find(String name, String surname);
 }

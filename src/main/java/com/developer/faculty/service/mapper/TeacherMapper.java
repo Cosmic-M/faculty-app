@@ -1,13 +1,12 @@
 package com.developer.faculty.service.mapper;
 
-import com.developer.faculty.dto.response.TeacherResponseDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import com.developer.faculty.dto.request.TeacherRequestDto;
+import com.developer.faculty.dto.response.TeacherResponseDto;
 import com.developer.faculty.model.Student;
 import com.developer.faculty.model.Teacher;
-
 import java.util.Collections;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
