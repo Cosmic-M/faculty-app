@@ -108,7 +108,7 @@ public class StudentController {
     }
 
     @GetMapping("/search")
-    @ApiOperation(value = "search students by name and surname or by one of these two params")
+    @ApiOperation(value = "search students by name and surname")
     public List<StudentResponseDto> search(@RequestParam String name,
                                            @RequestParam String surname) {
         List<Student> students = studentService.find(name, surname);
