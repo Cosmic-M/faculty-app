@@ -2,6 +2,7 @@ package com.developer.faculty.model;
 
 import javax.persistence.*;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "students")
 public class Student {
     @Id

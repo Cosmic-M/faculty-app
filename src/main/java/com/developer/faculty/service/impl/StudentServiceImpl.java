@@ -3,19 +3,21 @@ package com.developer.faculty.service.impl;
 import com.developer.faculty.model.Teacher;
 import com.developer.faculty.repository.StudentRepository;
 import com.developer.faculty.service.StudentService;
+import com.developer.faculty.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.developer.faculty.model.Student;
-import com.developer.faculty.repository.TeacherRepository;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository studentRepository;
-    private final TeacherRepository teacherRepository;
+    @Autowired
+    private StudentRepository studentRepository;
+    @Autowired
+    private TeacherService teacherService;
 
     @Override
     public Student create(Student student) {
@@ -45,23 +47,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addTeacher(Long studentId, Long teacherId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new RuntimeException("Cannot find student by id=" + studentId));
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(
-                () -> new RuntimeException("Cannot find teacher by id" + teacherId));
+        Student student = get(studentId);
+        Teacher teacher = teacherService.get(teacherId);
         List<Teacher> teachers = student.getTeachers();
-        teachers.add(teacher);
-        return studentRepository.save(student);
+        if (!teachers.contains(teacher)) {
+            teachers.add(teacher);
+            return studentRepository.save(student);
+        }
+        return student;
     }
 
     @Override
     public Student removeTeacher(Long studentId, Long teacherId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(
-                () -> new RuntimeException("Cannot find student by id=" + studentId));
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(
-                () -> new RuntimeException("Cannot find teacher by id" + teacherId));
+        Student student = get(studentId);
+        Teacher teacher = teacherService.get(teacherId);
         List<Teacher> teachers = student.getTeachers();
         teachers.remove(teacher);
+        student.setTeachers(teachers);
         return studentRepository.save(student);
     }
 }

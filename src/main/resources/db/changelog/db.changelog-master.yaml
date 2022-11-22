@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changes/add-teachers.sql
   - include:
       file: db/changelog/changes/add-students.sql
+  - include:
+      file: db/changelog/changes/add-teachers-to-students-teachers-list.sql

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.developer.faculty.dto.request.StudentRequestDto;
 import com.developer.faculty.model.Student;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,14 +28,14 @@ public class StudentController {
 
     @PostMapping
     @ApiOperation(value = "create a new student")
-    public StudentResponseDto create(@RequestBody StudentRequestDto requestDto) {
+    public StudentResponseDto create(@RequestBody @Valid StudentRequestDto requestDto) {
         Student student = studentMapper.toModel(requestDto);
         return studentMapper.toDto(studentService.create(student));
     }
 
     @PatchMapping("/{id}")
     @ApiOperation(value = "update chosen fields at student specified by id")
-    public void update(@PathVariable Long id, @RequestBody StudentRequestDto requestDto) {
+    public void update(@PathVariable Long id, @RequestBody @Valid StudentRequestDto requestDto) {
         Student fromDB = studentService.get(id);
         Student updatedStudent = studentMapper.toModel(fromDB, requestDto);
         studentService.update(updatedStudent);
@@ -56,7 +57,7 @@ public class StudentController {
     @PatchMapping("/{studentId}/remove-teacher/{teacherId}")
     @ApiOperation(value = "remove teacher from student's list of teachers")
     public StudentResponseDto removeTeacher(@PathVariable Long studentId, @PathVariable Long teacherId) {
-        Student student = studentService.addTeacher(studentId, teacherId);
+        Student student = studentService.removeTeacher(studentId, teacherId);
         return studentMapper.toDto(student);
     }
 }

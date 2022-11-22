@@ -1,5 +1,6 @@
 package com.developer.faculty.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "teachers")
 public class Teacher {
     @Id

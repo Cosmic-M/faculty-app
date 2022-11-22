@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,14 +27,14 @@ public class TeacherController {
 
     @PostMapping
     @ApiOperation(value = "create a new teacher")
-    public TeacherResponseDto create(@RequestBody TeacherRequestDto requestDto) {
+    public TeacherResponseDto create(@RequestBody @Valid TeacherRequestDto requestDto) {
         Teacher teacher = teacherMapper.toModel(requestDto);
         return teacherMapper.toDto(teacherService.create(teacher));
     }
 
     @PatchMapping("/{id}")
     @ApiOperation(value = "update chosen fields at teacher specified by id")
-    public void update(@PathVariable Long id, @RequestBody TeacherRequestDto requestDto) {
+    public void update(@PathVariable Long id, @RequestBody @Valid TeacherRequestDto requestDto) {
         Teacher fromDb = teacherService.get(id);
         Teacher updatedTeacher = teacherMapper.toModel(fromDb, requestDto);
         teacherService.update(updatedTeacher);
