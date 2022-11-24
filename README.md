@@ -3,6 +3,7 @@
 <h3>To launch app:</h3>
 - pull this file<br>
 - open terminal and run mvn clean package <br>
+- run app <br>
 - open browser: http://localhost:8085/swagger-ui/#/<br>
 - I added some scripts for creating tables and filling them with data, so...<br>
   everything prepared to work<br>
