@@ -2,13 +2,10 @@
 
 <h3>To launch app:</h3>
 - pull this file<br>
-- start docker on your local machine<br>
 - open terminal and run mvn clean package <br>
-- open terminal and start command: docker-compose up<br>
-- open browser: http://localhost:6868/swagger-ui/#/<br>
-- H2 connected, please follow the link: http://localhost:8080/h2-console ##password -> root##<br>
+- open browser: http://localhost:8085/swagger-ui/#/<br>
 - I added some scripts for creating tables and filling them with data, so...<br>
-  everything prepared to working<br>
+  everything prepared to work<br>
 
 <h3>Project description:</h3>
 In Faculty app I implemented basic CRUD operations. I chose H2 for storing data and with hand of <br>
@@ -72,8 +69,9 @@ GET: /teachers/search : search teachers by name and surname. In rare cases you c
 with the same name and surname in DB. Thus, this endpoint may return list of rows. <br>
 
 <h3>In this APP were used such technologies like:</h3>
-- org.apache.maven, version 4.0.0<br>
-- java, version 17<br>
-- org.hibernate<br>
-- spring boot<br>
-- liquibase<br>
+- org.apache.maven, version 4.0.0 <br>
+- java, version 17 <br>
+- org.hibernate <br>
+- spring boot <br>
+- liquibase <br>
+- H2
